@@ -172,7 +172,7 @@ function decsendAllThings() {
 function drawCaught() {
   //  for (let b of balls) {
   let t = millis();
-  let y = map(t - catchtime, 0, 500, h*0.23, h*0.17);
+  let y = map(t - catchtime, 0, 500, h*0.2, h*0.15);
   if (t < catchtime + 500) {
     push();
     textSize(w/9);
@@ -187,7 +187,7 @@ function drawCaught() {
 
 function drawSlipped() {
   let t = millis();
-  let y = map(t - sliptime, 0, 500, h*0.27, h*0.33);
+  let y = map(t - sliptime, 0, 500, h*0.3, h*0.35);
   if (millis() < sliptime + 500) {
     push();
     textSize(w/9);
