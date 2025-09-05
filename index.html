@@ -48,10 +48,11 @@ function equalRGB(a, b) {
 }
 
 // set screen setting
-let w = 300;
-let h = 600;
+let w = 600;
+let h = w*2;
 let barw = w * 0.45;
 let barh = barw * 0.333;
+let size = w/12
 
 // Ball functions
 
@@ -66,9 +67,9 @@ function addBall() {
       let ball = {
         color: choice(game_colors),
         strokecol: fgcol,
-        radius: 24,
+        radius: size,
         x: x,
-        y: randInt(-100, -25),
+        y: randInt(-w/3, -w/12),
         caugth: false,
         slipped: false,
       };
@@ -155,10 +156,10 @@ function drawAllBalls() {
 
 function decsendAllThings() {
   // make the speed score dependent
-  speed = 5 + score * 0.02;
+  speed = w/60 + score * 0.02;
 
   // clip speed between 2 and 15
-  speed = constrain(speed, 2, 15);
+  speed = constrain(speed, w/150, w/20);
 
   for (let b of balls) {
     b.y += speed;
@@ -174,7 +175,7 @@ function drawCaught() {
   let y = map(t - catchtime, 0, 500, 115, 90);
   if (t < catchtime + 500) {
     push();
-    textSize(35);
+    textSize(w/9);
     fill(catchcolor);
     stroke(0);
     strokeWeight(2);
@@ -189,7 +190,7 @@ function drawSlipped() {
   let y = map(t - sliptime, 0, 500, 175, 200);
   if (millis() < sliptime + 500) {
     push();
-    textSize(35);
+    textSize(w/9);
     fill(slipcolor);
     stroke(0);
     strokeWeight(2);
@@ -310,17 +311,17 @@ function checkBallWentIn() {}
 
 function drawScore() {
   push();
-  textSize(50);
+  textSize(w/6);
   fill(bgcol);
   stroke(fgcol);
   strokeWeight(4);
-  text(score, w / 2, 150);
+  text(score, w / 2, h/4);
   pop();
 }
 
 function drawGameOver() {
   push();
-  textSize(50);
+  textSize(w/6);
   fill(fgcol);
   stroke(fgcol);
   strokeWeight(2);
@@ -330,7 +331,7 @@ function drawGameOver() {
 
 function drawPlayAgain() {
   push();
-  textSize(30);
+  textSize(w/10);
   fill(fgcol);
   stroke(fgcol);
   strokeWeight(0);
