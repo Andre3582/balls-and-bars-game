@@ -11,7 +11,7 @@
     <main>
     </main>
     <script>
-      /* To Dos
+ /* To Dos
 - add "bar color switcher"
 */
 
@@ -76,6 +76,46 @@ function addBall() {
     }
   }
 }
+
+function removeOldThings() {
+  balls = balls.filter((b) => b.y < h * 1.5);
+  bars = bars.filter((b) => b.y < h);
+}
+
+function drawBall(b) {
+  push();
+
+  strokeWeight(4);
+  stroke(b.strokecol);
+  fill(b.color);
+
+  if (b.caugth) {
+    fill(transparant_color);
+    noStroke();
+  }
+
+  circle(b.x, b.y, b.radius * 2);
+  pop();
+}
+
+function catchBalls() {
+  for (let ball of balls) {
+    for (let bar of [lbar, rbar]) {
+      let same_color = equalRGB(ball.color, bar.color);
+
+      if (
+        // caught right color
+        ball.x == bar.x &&
+        ball.y > h * 0.83 &&
+        ball.y < h * 0.87 &&
+        same_color &&
+        bar.pressed &&
+        !ball.caugth
+      ) {
+        score += 5;
+        ball.caugth = true;
+        catchtime = millis();
+        catchcolor = ball.color;
       }
 
       if (
@@ -143,6 +183,55 @@ function drawCaught() {
   }
   // }
 }
+
+function drawSlipped() {
+  let t = millis();
+  let y = map(t - sliptime, 0, 500, 175, 200);
+  if (millis() < sliptime + 500) {
+    push();
+    textSize(35);
+    fill(slipcolor);
+    stroke(0);
+    strokeWeight(2);
+    text("-2", w / 2, y);
+    pop();
+  }
+}
+
+// bars functions
+
+let bary = h * 0.85;
+
+let lbar = {
+  sf: 0.8,
+  pressed: false,
+  x: w * 0.25,
+  y: bary,
+  main: true,
+};
+
+let rbar = {
+  sf: 0.8,
+  pressed: false,
+  x: w * 0.75,
+  y: bary,
+  main: true,
+};
+
+let bars = [lbar, rbar];
+
+function drawBars() {
+  for (let bar of bars) {
+    //left bar
+    push();
+    stroke(bar.strokecol);
+    strokeWeight(5);
+    fill(bar.color);
+    if (bar.y > bary) {
+      fill(transparant_color);
+      noStroke();
+    }
+    rect(bar.x, bar.y, barw * bar.sf, barh * bar.sf, 5);
     pop();
   }
 }
@@ -214,6 +303,25 @@ function replaceBar() {
     }
   }
 }
+
+// scoring points
+let score = 0;
+function checkBallWentIn() {}
+
+function drawScore() {
+  push();
+  textSize(50);
+  fill(bgcol);
+  stroke(fgcol);
+  strokeWeight(4);
+  text(score, w / 2, 150);
+  pop();
+}
+
+function drawGameOver() {
+  push();
+  textSize(50);
+  fill(fgcol);
   stroke(fgcol);
   strokeWeight(2);
   text("Game over!", w / 2, h * 0.4);
@@ -320,8 +428,8 @@ function draw() {
     drawSlipped();
   } else {
     if (!go_drawn) {
-      let c1 = 255*(!darkmode)
-      background(color(c1,c1,c1, 200));
+      let c1 = 255 * !darkmode;
+      background(color(c1, c1, c1, 200));
       go_drawn = true;
     }
     drawGameOver();
