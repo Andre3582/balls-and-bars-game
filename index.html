@@ -172,13 +172,13 @@ function decsendAllThings() {
 function drawCaught() {
   //  for (let b of balls) {
   let t = millis();
-  let y = map(t - catchtime, 0, 500, 115, 90);
+  let y = map(t - catchtime, 0, 500, h*0.23, h*0.17);
   if (t < catchtime + 500) {
     push();
     textSize(w/9);
     fill(catchcolor);
     stroke(fgcol);
-    strokeWeight(w/80);
+    strokeWeight(w/90);
     text("+5", w / 2, y);
     pop();
   }
@@ -187,13 +187,13 @@ function drawCaught() {
 
 function drawSlipped() {
   let t = millis();
-  let y = map(t - sliptime, 0, 500, 175, 200);
+  let y = map(t - sliptime, 0, 500, h*0.27, h*0.33);
   if (millis() < sliptime + 500) {
     push();
     textSize(w/9);
     fill(slipcolor);
     stroke(fgcol);
-    strokeWeight(w/80);
+    strokeWeight(w/90);
     text("-2", w / 2, y);
     pop();
   }
@@ -314,7 +314,7 @@ function drawScore() {
   textSize(w/6);
   fill(bgcol);
   stroke(fgcol);
-  strokeWeight(4);
+  strokeWeight(w/90);
   text(score, w / 2, h/4);
   pop();
 }
@@ -381,7 +381,7 @@ function setup() {
   cnv.position(newCanvasX,newCanvasY)
 
   rectMode(CENTER);
-  textAlign(CENTER);
+  textAlign(CENTER, CENTER);
 
   setInterval(addBall, 400);
   setInterval(removeOldThings, 50);
