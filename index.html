@@ -86,7 +86,7 @@ function removeOldThings() {
 function drawBall(b) {
   push();
 
-  strokeWeight(w/50);
+  strokeWeight(w/60);
   stroke(b.strokecol);
   fill(b.color);
 
@@ -177,7 +177,7 @@ function drawCaught() {
     push();
     textSize(w/9);
     fill(catchcolor);
-    stroke(0);
+    stroke(fgcol);
     strokeWeight(w/80);
     text("+5", w / 2, y);
     pop();
@@ -192,7 +192,7 @@ function drawSlipped() {
     push();
     textSize(w/9);
     fill(slipcolor);
-    stroke(0);
+    stroke(fgcol);
     strokeWeight(w/80);
     text("-2", w / 2, y);
     pop();
@@ -226,7 +226,7 @@ function drawBars() {
     //left bar
     push();
     stroke(bar.strokecol);
-    strokeWeight(w/50);
+    strokeWeight(w/60);
     fill(bar.color);
     if (bar.y > bary) {
       fill(transparant_color);
