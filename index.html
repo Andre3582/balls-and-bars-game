@@ -373,10 +373,18 @@ let game_colors;
 let ball_prop;
 let cnv
 function setup() {
-    cnv=createCanvas(w,h);
+   if (windowWidth < windowHeight){
+    w = windowWidth
+    h= w*2
+  } else{
+    h= windowHeight
+    w = h/2
+  }
+  
+  cnv=createCanvas(w,h);
   // print(img.width,img.height);
   let newCanvasX = (windowWidth- w)/2;
-  let newCanvasY = (windowHeight- h)/2;
+  let newCanvasY = 0;
   cnv.position(newCanvasX,newCanvasY)
 
   rectMode(CENTER);
