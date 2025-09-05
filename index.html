@@ -371,9 +371,14 @@ let go_drawn = false;
 
 let game_colors;
 let ball_prop;
-
+let cnv
 function setup() {
-  createCanvas(w, h);
+    cnv=createCanvas(w,h);
+  // print(img.width,img.height);
+  let newCanvasX = (windowWidth- w)/2;
+  let newCanvasY = (windowHeight- h)/2;
+  cnv.position(newCanvasX,newCanvasY)
+
   rectMode(CENTER);
   textAlign(CENTER);
 
